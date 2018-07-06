@@ -45,7 +45,7 @@ module.exports = (() => {
 
       return this.__value;
     }
-  };
+  }
 
   ['field', 'where', 'limit', 'order', 'group', 'set'].forEach((fnc) => {
     ApplicationRecord.prototype[fnc] = function (...params) {

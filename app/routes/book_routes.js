@@ -8,7 +8,6 @@ const books = [
     b: 2
   },
   {
-
     id: 2,
     a: 3,
     b: 4
