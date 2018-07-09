@@ -15,7 +15,7 @@ const { addWish, allWishes, editWish, changeStatus } = require('./app/routes/wis
 const { authenticate, register, checkAuthenticated } = require('./app/routes/authenticate_routes');
 
 
-app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
 

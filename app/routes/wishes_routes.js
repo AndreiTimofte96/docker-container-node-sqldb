@@ -50,13 +50,14 @@ module.exports = (() => {
 
   const changeStatus = (req, res) => {
     const { body } = req;
-    const { wish_id, status } = body;
+    const { wish_id, status, finished_on } = body;
     const { id } = req.decoded.user;
 
     changeStatus_action({
       wish_id,
       status,
-      id
+      id,
+      finished_on
     }).then((response) => {
       res.json(response);
     });

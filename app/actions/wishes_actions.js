@@ -16,7 +16,7 @@ module.exports = (() => {
       .set('wish_text', wish_text)
       .set('amount', amount)
       .set('added_on', added_on)
-      .set('status', 'in_progress')
+      .set('status', 'not_started')
       .valueOf()
       .then(() => {
         return true;
@@ -59,8 +59,33 @@ module.exports = (() => {
   const changeStatus_action = ({
     wish_id,
     status,
-    id
+    id,
+    finished_on
   }) => {
+
+    if (status === "finished" && finished_on) {
+      return new Wish()
+        .update()
+        .set('status', status)
+        .set('finished_on', finished_on)
+        .where({ wish_id, id })
+        .valueOf()
+        .then((response) => {
+
+          // console.log('changeSTATUS', response);
+
+          if (response.changedRows === 0) {
+
+            if (response.affectedRows === 1) {
+              return { success: true, message: 'Status changed successfully!' };
+            }
+            return { success: false, message: 'Error! This wish doesn\'t belong to this user!' };
+          }
+          return { success: true, message: 'Status changed successfully!' };
+        });
+
+    }
+
     return new Wish()
       .update()
       .set('status', status)
@@ -68,14 +93,14 @@ module.exports = (() => {
       .valueOf()
       .then((response) => {
 
-        console.log('changeSTATUS', response);
+        // console.log('changeSTATUS', response);
 
         if (response.changedRows === 0) {
 
           if (response.affectedRows === 1) {
             return { success: true, message: 'Status changed successfully!' };
           }
-          return { success: false, message: 'Error! This wish doesnt belong to this user!' };
+          return { success: false, message: 'Error! This wish doesn\'t belong to this user!' };
         }
         return { success: true, message: 'Status changed successfully!' };
       });
