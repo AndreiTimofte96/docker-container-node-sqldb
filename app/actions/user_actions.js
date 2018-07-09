@@ -46,8 +46,6 @@ module.exports = (() => {
       }).valueOf()
       .then((res) => {
 
-        console.log("RES", res);
-        console.log(res.length);
         if (res.length > 1)
           return null;
         return res[0];

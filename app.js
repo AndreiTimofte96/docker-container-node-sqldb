@@ -11,6 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const { singleBook, allBooks } = require('./app/routes/book_routes');
+const { addWish, allWishes, editWish, changeStatus } = require('./app/routes/wishes_routes');
 const { authenticate, register, checkAuthenticated } = require('./app/routes/authenticate_routes');
 
 
@@ -32,11 +33,17 @@ app.use('/api', apiRoutes);
 apiRoutes.use(checkAuthenticated);
 
 apiRoutes.get('/', (req, res) => {
-  res.json({success: true, message: 'This is my API!'});
+  res.json({ success: true, message: 'This is my API!' });
 });
 
 apiRoutes.get('/books', allBooks);
 apiRoutes.get('/books/:id', singleBook);
+
+apiRoutes.post('/add_wish', addWish);
+apiRoutes.get('/wishes', allWishes);
+apiRoutes.post('/edit_wish', editWish);
+apiRoutes.post('/change_status', changeStatus);
+
 
 app.listen(PORT, () => {
   debug(`listening at port ${chalk.green(PORT)}`);
